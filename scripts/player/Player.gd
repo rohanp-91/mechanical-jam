@@ -16,3 +16,25 @@ export (float) var low_fall_multiplier = 1.5
 export (float) var max_horizontal_air_speed = 120.0
 export (float) var air_acceleration = 75.0
 export (float) var air_friction = 20.0
+
+# Light variables
+export (float) var light_reducer = 0.5
+export (float) var light_multiplier = 0.5
+
+# Child accessors
+onready var _sprite = $Sprites/Sprite
+
+func _ready():
+	add_to_group("player")
+	
+func flip_sprite(direction):
+	if not [-1, 1].has(direction):
+		return
+		
+	if direction == 1:
+		_sprite.flip_h = false
+	elif direction == -1:
+		_sprite.flip_h = true
+	
+func increase_light():
+	pass

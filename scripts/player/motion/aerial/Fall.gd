@@ -14,13 +14,13 @@ func enter():
 	_velocity = enter_velocity
 	
 	var direction = get_input_direction()
-	flip_sprite(direction)
+	owner.flip_sprite(direction)
 	
 	owner.get_node("AnimationPlayer").play("Fall")
 	
 func process(delta):
 	var direction = get_input_direction()
-	flip_sprite(direction)
+	owner.flip_sprite(direction)
 	
 	.move(direction, delta)
 	
