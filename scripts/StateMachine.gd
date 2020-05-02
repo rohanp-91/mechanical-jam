@@ -27,7 +27,7 @@ func change_to_state(new_state: String, args = null):
 	_prev_state = _state
 	_state = _state_map[new_state]
 	if _state.has_method("initialize"):
-		_state.initialize(_prev_state._velocity, _prev_state._jump_count, args)
+		_state.initialize(_prev_state._velocity, args)
 	_enter_state()
 
 func return_to_previous_state():
@@ -87,3 +87,9 @@ func _notification(what):
 	if _state:
 		if _state.has_method("notification"):
 			_state.notification(what)
+		
+
+
+
+
+
