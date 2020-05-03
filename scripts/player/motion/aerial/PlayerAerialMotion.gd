@@ -1,4 +1,4 @@
-extends "../Motion.gd"
+extends "../PlayerMotion.gd"
 	
 var enter_velocity: Vector2
 var air_jump: bool = false

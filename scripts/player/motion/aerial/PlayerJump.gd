@@ -1,4 +1,4 @@
-extends "AerialMotion.gd"
+extends "PlayerAerialMotion.gd"
 
 func initialize(velocity, low_fall = false):
 	.initialize(velocity)

@@ -47,7 +47,6 @@ func decrease_light(delta):
 		current_scale = Vector2.ZERO
 	_light.set_scale(current_scale)
 	
-	
 func increase_light():
 	var current_scale = _light.transform.get_scale()
 	current_scale += Vector2.ONE * light_multiplier

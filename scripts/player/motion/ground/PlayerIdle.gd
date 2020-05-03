@@ -1,4 +1,4 @@
-extends "GroundMotion.gd"
+extends "PlayerGroundMotion.gd"
 
 func enter():
 	owner.get_node("AnimationPlayer").play("Idle")
