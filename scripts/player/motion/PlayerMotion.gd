@@ -28,6 +28,7 @@ var _velocity: Vector2 = Vector2.ZERO
 # Process handlers
 
 func _ready():
+	add_to_group("player_motion")
 	_initialize_variables()
 	
 func unhandled_input(event):

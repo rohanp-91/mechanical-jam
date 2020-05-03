@@ -10,10 +10,6 @@
 [ext_resource path="res://scripts/player/Player.gd" type="Script" id=8]
 [ext_resource path="res://assets/player_light.png" type="Texture" id=9]
 
-
-
-
-
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 4, 4 )
 

@@ -7,8 +7,9 @@
 [ext_resource path="res://scripts/enemies/SludgeMonster.gd" type="Script" id=5]
 [ext_resource path="res://scripts/enemies/EnemyMove.gd" type="Script" id=6]
 
-[sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 2, 4 )
+[sub_resource type="CapsuleShape2D" id=1]
+radius = 4.0
+height = 2.0
 
 [sub_resource type="Animation" id=2]
 resource_name = "Die"
@@ -60,7 +61,7 @@ tracks/0/keys = {
 }
 
 [sub_resource type="RectangleShape2D" id=5]
-extents = Vector2( 80, 16 )
+extents = Vector2( 60, 16 )
 
 [node name="SludgeMonster" instance=ExtResource( 1 )]
 collision_layer = 4
@@ -73,10 +74,10 @@ scale = Vector2( 0.5, 0.5 )
 texture = ExtResource( 2 )
 vframes = 3
 hframes = 4
-frame = 4
+frame = 8
 
 [node name="CollisionShape2D" parent="." index="1"]
-position = Vector2( -5, -4 )
+position = Vector2( 0, -5 )
 shape = SubResource( 1 )
 
 [node name="AnimationPlayer" parent="." index="2"]
@@ -98,10 +99,31 @@ script = ExtResource( 6 )
 [node name="Die" type="Node" parent="StateMachine" index="2"]
 
 [node name="Detector" type="Area2D" parent="." index="4"]
-visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Detector" index="0"]
 position = Vector2( 0, -16 )
 shape = SubResource( 5 )
+
+[node name="WallDetectorLeft" type="RayCast2D" parent="." index="5"]
+position = Vector2( 0, -4 )
+enabled = true
+cast_to = Vector2( -60, 0 )
+collision_mask = 3
+
+[node name="WallDetectorRight" type="RayCast2D" parent="." index="6"]
+position = Vector2( 0, -4 )
+enabled = true
+cast_to = Vector2( 60, 0 )
+collision_mask = 3
+
+[node name="DropDetectorLeft" type="RayCast2D" parent="." index="7"]
+position = Vector2( -6, -4 )
+enabled = true
+cast_to = Vector2( 0, 10 )
+
+[node name="DropDetectorRight" type="RayCast2D" parent="." index="8"]
+position = Vector2( 6, -4 )
+enabled = true
+cast_to = Vector2( 0, 10 )
 [connection signal="body_entered" from="Detector" to="." method="on_Detector_body_entered"]
 [connection signal="body_exited" from="Detector" to="." method="on_Detector_body_exited"]

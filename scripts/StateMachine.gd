@@ -25,7 +25,7 @@ func change_to_state(new_state: String, args = null):
 		return
 	_state_history.push_front(_state.name)
 	_prev_state = _state
-	_state = _state_map[new_state]
+	_state = _state_map[new_state] 
 	if _state.has_method("initialize"):
 		_state.initialize(_prev_state._velocity, args)
 	_enter_state()
