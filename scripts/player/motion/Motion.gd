@@ -33,6 +33,7 @@ func _ready():
 func unhandled_input(event):
 	get_tree().set_input_as_handled()
 	
+
 func physics_process(delta):
 	_velocity = owner.move_and_slide(_velocity, Vector2.UP)
 	_velocity.y += gravity * delta

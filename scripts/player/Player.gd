@@ -19,13 +19,17 @@ export (float) var air_friction = 20.0
 
 # Light variables
 export (float) var light_reducer = 0.5
-export (float) var light_multiplier = 0.5
+export (float) var light_multiplier = 1.0
 
 # Child accessors
 onready var _sprite = $Sprites/Sprite
+onready var _light = $Light
 
 func _ready():
 	add_to_group("player")
+	
+func _process(delta):
+	decrease_light(delta)
 	
 func flip_sprite(direction):
 	if not [-1, 1].has(direction):
@@ -36,5 +40,15 @@ func flip_sprite(direction):
 	elif direction == -1:
 		_sprite.flip_h = true
 	
+func decrease_light(delta):
+	var current_scale = _light.transform.get_scale()
+	current_scale -= Vector2.ONE * light_reducer * delta
+	if current_scale < Vector2.ZERO:
+		current_scale = Vector2.ZERO
+	_light.set_scale(current_scale)
+	
+	
 func increase_light():
-	pass
+	var current_scale = _light.transform.get_scale()
+	current_scale += Vector2.ONE * light_multiplier
+	_light.set_scale(current_scale)

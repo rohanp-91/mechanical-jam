@@ -24,4 +24,4 @@ format = 1
 [node name="Pickups" type="Node2D" parent="."]
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
-color = Color( 0, 0, 0, 0.941176 )
+color = Color( 0, 0, 0, 0.960784 )
