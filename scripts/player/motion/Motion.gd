@@ -29,12 +29,11 @@ var _velocity: Vector2 = Vector2.ZERO
 
 func _ready():
 	_initialize_variables()
-	if not owner.is_in_group("player"):
-		add_to_group("player")
 	
 func unhandled_input(event):
 	get_tree().set_input_as_handled()
 	
+
 func physics_process(delta):
 	_velocity = owner.move_and_slide(_velocity, Vector2.UP)
 	_velocity.y += gravity * delta
@@ -48,6 +47,8 @@ func back():
 	fsm.return_to_previous_state()
 	
 
+
+
 # Public members
 
 func get_input_direction():
@@ -57,18 +58,7 @@ func get_input_direction():
 	return (right - left)
 
 
-func flip_sprite(direction):
-	if not [-1, 1].has(direction):
-		return
-		
-	var sprite = owner.get_node("Sprites/Sprite")
-	if direction == 1:
-		sprite.flip_h = false
-	elif direction == -1:
-		sprite.flip_h = true
-		
-func stop_vertical_motion():
-	_velocity.y = 0
+
 
 # Private members
 

@@ -7,8 +7,8 @@
 [node name="Background" type="ColorRect" parent="."]
 margin_left = -8.0
 margin_top = -8.0
-margin_right = 408.0
-margin_bottom = 248.0
+margin_right = 336.0
+margin_bottom = 176.0
 color = Color( 0.0596999, 0.0173984, 0.0859375, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -22,3 +22,6 @@ format = 1
 [node name="Interactables" type="Node2D" parent="."]
 
 [node name="Pickups" type="Node2D" parent="."]
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+color = Color( 0, 0, 0, 0.960784 )

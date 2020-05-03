@@ -2,7 +2,7 @@ extends "GroundMotion.gd"
 
 func enter():
 	var direction = get_input_direction()
-	flip_sprite(direction)
+	owner.flip_sprite(direction)
 	
 	owner.get_node("AnimationPlayer").play("Run")
 	
@@ -14,7 +14,7 @@ func process(delta):
 		else:
 			stop(_velocity, delta)
 		
-	flip_sprite(direction)
+	owner.flip_sprite(direction)
 	_velocity = move(_velocity, direction, delta)
 	
 	.process(delta)
