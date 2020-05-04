@@ -12,8 +12,9 @@
 [ext_resource path="res://scenes/hurtbox_hitbox/Hurtbox.tscn" type="PackedScene" id=10]
 [ext_resource path="res://scripts/player/motion/damage/Knockback.gd" type="Script" id=11]
 
-[sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 4, 4 )
+[sub_resource type="CapsuleShape2D" id=9]
+radius = 4.0
+height = 0.0
 
 [sub_resource type="Animation" id=2]
 resource_name = "Climb"
@@ -148,7 +149,7 @@ frame = 4
 
 [node name="CollisionShape2D" parent="." index="1"]
 position = Vector2( 0, -4 )
-shape = SubResource( 1 )
+shape = SubResource( 9 )
 
 [node name="AnimationPlayer" parent="." index="2"]
 autoplay = "Idle"
@@ -185,6 +186,7 @@ texture = ExtResource( 9 )
 color = Color( 0.6664, 0.85, 0.442, 1 )
 
 [node name="Hurtbox" parent="." index="5" instance=ExtResource( 10 )]
+visible = false
 collision_layer = 2
 collision_mask = 4
 
