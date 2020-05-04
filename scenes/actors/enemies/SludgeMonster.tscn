@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://scenes/actors/ActorBase.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/slime-spritesheet.png" type="Texture" id=2]
@@ -60,9 +60,6 @@ tracks/0/keys = {
 "values": [ 4, 4, 5, 6 ]
 }
 
-[sub_resource type="RectangleShape2D" id=5]
-extents = Vector2( 60, 16 )
-
 [node name="SludgeMonster" instance=ExtResource( 1 )]
 collision_layer = 4
 collision_mask = 3
@@ -98,32 +95,24 @@ script = ExtResource( 6 )
 
 [node name="Die" type="Node" parent="StateMachine" index="2"]
 
-[node name="Detector" type="Area2D" parent="." index="4"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Detector" index="0"]
-position = Vector2( 0, -16 )
-shape = SubResource( 5 )
-
-[node name="WallDetectorLeft" type="RayCast2D" parent="." index="5"]
+[node name="WallDetectorLeft" type="RayCast2D" parent="." index="4"]
 position = Vector2( 0, -4 )
 enabled = true
 cast_to = Vector2( -60, 0 )
 collision_mask = 3
 
-[node name="WallDetectorRight" type="RayCast2D" parent="." index="6"]
+[node name="WallDetectorRight" type="RayCast2D" parent="." index="5"]
 position = Vector2( 0, -4 )
 enabled = true
 cast_to = Vector2( 60, 0 )
 collision_mask = 3
 
-[node name="DropDetectorLeft" type="RayCast2D" parent="." index="7"]
+[node name="DropDetectorLeft" type="RayCast2D" parent="." index="6"]
 position = Vector2( -6, -4 )
 enabled = true
 cast_to = Vector2( 0, 10 )
 
-[node name="DropDetectorRight" type="RayCast2D" parent="." index="8"]
+[node name="DropDetectorRight" type="RayCast2D" parent="." index="7"]
 position = Vector2( 6, -4 )
 enabled = true
 cast_to = Vector2( 0, 10 )
-[connection signal="body_entered" from="Detector" to="." method="on_Detector_body_entered"]
-[connection signal="body_exited" from="Detector" to="." method="on_Detector_body_exited"]

@@ -14,28 +14,34 @@ onready var _drop_detector_left = $DropDetectorLeft
 onready var _drop_detector_right = $DropDetectorRight
 
 var _should_activate: bool = false
+var priority_map: Dictionary = {
+	"Any": false,
+	"PlayerLeft" : false,
+	"PlayerRight" : false}
+var priority: String
 
 func _ready():
 	add_to_group("enemy")
+	priority = "Any"
 	
 func _physics_process(delta):
 	var collision_left = get_collision_body_name(_wall_detector_left)
 	var collision_right = get_collision_body_name(_wall_detector_right)
-	if [collision_left, collision_right].has("Player"):
-		_should_activate = true
-	elif [collision_left, collision_right].has("Foreground"):
-		_should_activate = false
 	
+	priority_map["PlayerLeft"] = true if collision_left == "Player" else false
+	priority_map["PlayerRight"] = true if collision_right == "Player" else false
+	priority_map["Any"] = priority_map["PlayerRight"] or priority_map["PlayerLeft"]
+	
+	if not _drop_detector_left.is_colliding():
+		priority = "PlayerRight"
+	elif not _drop_detector_right.is_colliding():
+		priority = "PlayerLeft"
+	else:
+		priority = "Any"
+	
+
 func should_activate():
-	return _should_activate
-
-func on_Detector_body_entered(body):
-	if body.name == "Player" and not _should_activate:
-		_should_activate = true
-
-func on_Detector_body_exited(body):
-	if body.name == "Player" and _should_activate:
-		_should_activate = false
+	return priority_map[priority]
 
 func flip_sprite(direction):
 	if not [-1, 1].has(direction):

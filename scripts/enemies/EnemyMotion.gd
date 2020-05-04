@@ -28,12 +28,15 @@ func exit(state_name, args = null):
 	
 func back():
 	fsm.return_to_previous_state()
+	
+func return_to_original_position():
+	if fsm._state.has_method("return_to_original_position"):
+		fsm._state.return_to_original_position()
 		
 func get_facing_direction():
-	var direction = owner.global_position.direction_to(player.global_position)
-	if direction.x < 0.0:
-		return -1
-	return 1
+	var player_direction = owner.global_position.direction_to(player.global_position)
+	var direction = -1 if player_direction.x < 0.0 else 1
+	return direction
 	
 func get_original_position_direction():
 	var direction = owner.global_position.direction_to(original_position)
