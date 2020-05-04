@@ -22,6 +22,10 @@ var max_horizontal_air_speed: float
 var air_acceleration: float
 var air_friction: float
 
+# Attack and damage variables
+var knockback_impulse: float
+var knockback_counter_impulse: float
+
 # Private variables
 var _velocity: Vector2 = Vector2.ZERO
 
@@ -57,9 +61,17 @@ func get_input_direction():
 	var right = int(Input.is_action_pressed("right"))
 	
 	return (right - left)
+	
+func get_knockback_direction(area):
+	var enemy_direction = owner.global_position.direction_to(area.global_position).normalized()
+	var knockback_direction = -enemy_direction
+	return knockback_direction
+	
+# Callback members
 
-
-
+func knockback(area):
+	var knockback_direction = get_knockback_direction(area)
+	exit("Knockback", knockback_direction)
 
 # Private members
 
@@ -78,6 +90,9 @@ func _initialize_variables():
 	max_horizontal_air_speed = player.max_horizontal_air_speed
 	air_acceleration = player.air_acceleration
 	air_friction = player.air_friction
+	
+	knockback_impulse = player.knockback_impulse
+	knockback_counter_impulse = player.knockback_counter_impulse
 	
 	
 	

@@ -11,6 +11,9 @@ var gravity: float
 var _velocity: Vector2 = Vector2.ZERO
 var _should_activate: bool = false
 
+func stop_after_hit():
+	exit("Suspended")
+
 func _ready():
 	add_to_group("enemy_motion")
 	_initialize_variables()

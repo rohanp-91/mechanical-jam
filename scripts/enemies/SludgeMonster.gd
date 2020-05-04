@@ -13,7 +13,6 @@ onready var _wall_detector_right = $WallDetectorRight
 onready var _drop_detector_left = $DropDetectorLeft
 onready var _drop_detector_right = $DropDetectorRight
 
-var _should_activate: bool = false
 var priority_map: Dictionary = {
 	"Any": false,
 	"PlayerLeft" : false,
@@ -41,7 +40,7 @@ func _physics_process(delta):
 	
 
 func should_activate():
-	return priority_map[priority]
+	return priority_map[priority] if priority else false
 
 func flip_sprite(direction):
 	if not [-1, 1].has(direction):
@@ -57,3 +56,9 @@ func get_collision_body_name(raycast: RayCast2D):
 		return raycast.get_collider().name
 	return null		
 
+func on_Hitbox_area_exited(area):
+	if "hurtbox_type" in area:
+		if area.hurtbox_type == Utils.HurtboxType.Player:
+			get_tree().call_group("enemy_motion", "stop_after_hit")
+			
+			

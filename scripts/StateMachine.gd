@@ -32,11 +32,11 @@ func return_to_previous_state():
 	if not _prev_state:
 		push_warning("Previous state is empty")
 		return
-	_state = _state_map[_prev_state]
+	_state = _state_map[_prev_state.name]
 	_enter_state()
 
 #-----------------------
-# State Machine Methods	
+# State Machine Methods
 #-----------------------
 
 # Enters the state assigned to _state
