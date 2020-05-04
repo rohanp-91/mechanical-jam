@@ -10,7 +10,7 @@ func initialize(velocity, knocback_dir = null):
 
 func enter():
 	knockback_velocity = knockback_direction * knockback_impulse
-	owner.get_node("AnimationPlayer").play("Idle")
+	owner.get_node("AnimationPlayer").play("Hurt")
 
 func process(delta):
 	knockback_velocity = knockback_velocity.move_toward(Vector2.ZERO, knockback_counter_impulse * delta)
