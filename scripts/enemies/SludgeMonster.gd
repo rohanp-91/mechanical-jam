@@ -30,7 +30,7 @@ func _physics_process(delta):
 	
 	priority_map["PlayerLeft"] = true if collision_left == "Player" else false
 	priority_map["PlayerRight"] = true if collision_right == "Player" else false
-	priority_map["Any"] = priority_map["PlayerRight"] or priority_map["PlayerLeft"]
+	priority_map["Any"] = priority_map["Any"] or priority_map["PlayerRight"] or priority_map["PlayerLeft"]
 	
 	if not _drop_detector_left.is_colliding():
 		priority = "PlayerRight"

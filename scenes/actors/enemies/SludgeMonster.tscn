@@ -108,11 +108,11 @@ cast_to = Vector2( 60, 0 )
 collision_mask = 3
 
 [node name="DropDetectorLeft" type="RayCast2D" parent="." index="6"]
-position = Vector2( -6, -4 )
+position = Vector2( -8, -4 )
 enabled = true
 cast_to = Vector2( 0, 10 )
 
 [node name="DropDetectorRight" type="RayCast2D" parent="." index="7"]
-position = Vector2( 6, -4 )
+position = Vector2( 8, -4 )
 enabled = true
 cast_to = Vector2( 0, 10 )
