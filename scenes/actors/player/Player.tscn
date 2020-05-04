@@ -107,6 +107,7 @@ hframes = 16
 frame = 11
 
 [node name="CollisionShape2D" parent="." index="1"]
+visible = false
 position = Vector2( 0, -4 )
 shape = SubResource( 1 )
 
@@ -138,6 +139,7 @@ script = ExtResource( 5 )
 script = ExtResource( 11 )
 
 [node name="Light" type="Light2D" parent="." index="4"]
+visible = false
 scale = Vector2( 4, 4 )
 texture = ExtResource( 9 )
 color = Color( 0.6664, 0.85, 0.442, 1 )
