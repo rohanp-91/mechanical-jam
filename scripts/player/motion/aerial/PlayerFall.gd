@@ -1,4 +1,4 @@
-extends "AerialMotion.gd"
+extends "PlayerAerialMotion.gd"
 
 var is_low_fall: bool = false
 

@@ -1,0 +1,143 @@
+[gd_scene load_steps=14 format=2]
+
+[ext_resource path="res://scenes/actors/ActorBase.tscn" type="PackedScene" id=1]
+[ext_resource path="res://assets/slime-spritesheet.png" type="Texture" id=2]
+[ext_resource path="res://scripts/StateMachine.gd" type="Script" id=3]
+[ext_resource path="res://scripts/enemies/EnemyIdle.gd" type="Script" id=4]
+[ext_resource path="res://scripts/enemies/SludgeMonster.gd" type="Script" id=5]
+[ext_resource path="res://scripts/enemies/EnemyMove.gd" type="Script" id=6]
+[ext_resource path="res://scenes/hurtbox_hitbox/Hitbox.tscn" type="PackedScene" id=7]
+[ext_resource path="res://scripts/enemies/EnemySuspended.gd" type="Script" id=8]
+
+[sub_resource type="CapsuleShape2D" id=1]
+radius = 4.0
+height = 2.0
+
+[sub_resource type="Animation" id=2]
+resource_name = "Die"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprites/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 8, 9, 10, 11 ]
+}
+
+[sub_resource type="Animation" id=3]
+length = 0.8
+loop = true
+step = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprites/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3 ]
+}
+
+[sub_resource type="Animation" id=4]
+length = 0.4
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprites/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 4, 4, 5, 6 ]
+}
+
+[sub_resource type="RectangleShape2D" id=5]
+extents = Vector2( 7, 3 )
+
+[node name="SludgeMonster" instance=ExtResource( 1 )]
+collision_layer = 4
+collision_mask = 3
+script = ExtResource( 5 )
+max_ground_speed = 40.0
+
+[node name="Sprite" type="Sprite" parent="Sprites" index="0"]
+position = Vector2( 0, -8 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 2 )
+vframes = 3
+hframes = 4
+frame = 8
+
+[node name="CollisionShape2D" parent="." index="1"]
+position = Vector2( 0, -5 )
+shape = SubResource( 1 )
+
+[node name="AnimationPlayer" parent="." index="2"]
+autoplay = "Idle"
+anims/Die = SubResource( 2 )
+anims/Idle = SubResource( 3 )
+anims/Move = SubResource( 4 )
+
+[node name="StateMachine" parent="." index="3"]
+script = ExtResource( 3 )
+starting_state = "Idle"
+
+[node name="Idle" type="Node" parent="StateMachine" index="0"]
+script = ExtResource( 4 )
+
+[node name="Move" type="Node" parent="StateMachine" index="1"]
+script = ExtResource( 6 )
+
+[node name="Die" type="Node" parent="StateMachine" index="2"]
+
+[node name="Suspended" type="Node" parent="StateMachine" index="3"]
+script = ExtResource( 8 )
+
+[node name="WallDetectorLeft" type="RayCast2D" parent="." index="4"]
+visible = false
+position = Vector2( 0, -4 )
+enabled = true
+cast_to = Vector2( -60, 0 )
+collision_mask = 3
+
+[node name="WallDetectorRight" type="RayCast2D" parent="." index="5"]
+visible = false
+position = Vector2( 0, -4 )
+enabled = true
+cast_to = Vector2( 60, 0 )
+collision_mask = 3
+
+[node name="DropDetectorLeft" type="RayCast2D" parent="." index="6"]
+visible = false
+position = Vector2( -8, -4 )
+enabled = true
+cast_to = Vector2( 0, 10 )
+
+[node name="DropDetectorRight" type="RayCast2D" parent="." index="7"]
+visible = false
+position = Vector2( 8, -4 )
+enabled = true
+cast_to = Vector2( 0, 10 )
+
+[node name="Hitbox" parent="." index="8" instance=ExtResource( 7 )]
+collision_layer = 4
+collision_mask = 2
+hitbox_type = 0
+
+[node name="CollisionShape2D" parent="Hitbox" index="0"]
+position = Vector2( 0, -3 )
+shape = SubResource( 5 )
+[connection signal="area_exited" from="Hitbox" to="." method="on_Hitbox_area_exited"]
+
+[editable path="Hitbox"]

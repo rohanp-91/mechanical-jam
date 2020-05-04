@@ -17,6 +17,10 @@ export (float) var max_horizontal_air_speed = 120.0
 export (float) var air_acceleration = 75.0
 export (float) var air_friction = 20.0
 
+# Attack and damage variables
+export (float) var knockback_impulse = 60.0
+export (float) var knockback_counter_impulse = 30.0
+
 # Light variables
 export (float) var light_reducer = 0.5
 export (float) var light_multiplier = 1.0
@@ -47,8 +51,13 @@ func decrease_light(delta):
 		current_scale = Vector2.ZERO
 	_light.set_scale(current_scale)
 	
-	
 func increase_light():
 	var current_scale = _light.transform.get_scale()
 	current_scale += Vector2.ONE * light_multiplier
 	_light.set_scale(current_scale)
+
+
+func on_Hurtbox_area_entered(area):
+	if "hitbox_type" in area:
+		if area.hitbox_type == Utils.HitboxType.Enemy:
+			get_tree().call_group("player_motion", "knockback", area)

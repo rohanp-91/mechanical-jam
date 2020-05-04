@@ -1,4 +1,4 @@
-extends "GroundMotion.gd"
+extends "PlayerGroundMotion.gd"
 
 func enter():
 	var direction = get_input_direction()
