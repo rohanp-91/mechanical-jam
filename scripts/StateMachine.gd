@@ -11,7 +11,6 @@ const DEBUG = false
 # Private variables
 var _state: Object = null
 var _prev_state: Object = null
-var _state_history = []
 var _state_map = {}
 
 func _ready():
@@ -23,7 +22,6 @@ func _ready():
 func change_to_state(new_state: String, args = null):
 	if new_state == _state.name:
 		return
-	_state_history.push_front(_state.name)
 	_prev_state = _state
 	_state = _state_map[new_state] 
 	if _state.has_method("initialize"):
@@ -31,10 +29,10 @@ func change_to_state(new_state: String, args = null):
 	_enter_state()
 
 func return_to_previous_state():
-	if _state_history.size() <= 0:
-		push_warning("State history is empty")
+	if not _prev_state:
+		push_warning("Previous state is empty")
 		return
-	_state = _state_map[_state_history.pop_front()]
+	_state = _state_map[_prev_state]
 	_enter_state()
 
 #-----------------------

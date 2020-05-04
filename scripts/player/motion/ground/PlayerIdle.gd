@@ -1,6 +1,7 @@
 extends "PlayerGroundMotion.gd"
 
 func enter():
+	_velocity.x = 0
 	owner.get_node("AnimationPlayer").play("Idle")
 	
 func unhandled_input(event):
