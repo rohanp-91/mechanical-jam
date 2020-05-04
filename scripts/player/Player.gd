@@ -18,7 +18,7 @@ export (float) var air_acceleration = 75.0
 export (float) var air_friction = 20.0
 
 # Attack and damage variables
-export (float) var knockback_impulse = 60.0
+export (float) var knockback_impulse = 100.0
 export (float) var knockback_counter_impulse = 30.0
 
 # Light variables

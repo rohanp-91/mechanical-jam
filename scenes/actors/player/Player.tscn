@@ -62,7 +62,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0, 0.1 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
-"values": [ Color( 1, 1, 1, 1 ), Color( 1, 0, 0, 1 ) ]
+"values": [ Color( 0.952941, 0.0470588, 0.0235294, 1 ), Color( 1, 1, 1, 1 ) ]
 }
 
 [sub_resource type="Animation" id=4]
@@ -79,6 +79,18 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 1,
 "values": [ 4, 5, 6, 7 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprites/Sprite:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
 }
 
 [sub_resource type="Animation" id=5]
@@ -123,7 +135,6 @@ collision_layer = 2
 collision_mask = 61
 script = ExtResource( 8 )
 air_jump_multiplier = 0.5
-knockback_impulse = 100.0
 knockback_counter_impulse = 200.0
 
 [node name="Sprites" parent="." index="0"]
@@ -136,7 +147,6 @@ hframes = 16
 frame = 4
 
 [node name="CollisionShape2D" parent="." index="1"]
-visible = false
 position = Vector2( 0, -4 )
 shape = SubResource( 1 )
 
@@ -182,5 +192,6 @@ collision_mask = 4
 position = Vector2( 0, -4 )
 shape = SubResource( 7 )
 [connection signal="area_entered" from="Hurtbox" to="." method="on_Hurtbox_area_entered"]
+[connection signal="area_exited" from="Hurtbox" to="." method="on_Hurtbox_area_exited"]
 
 [editable path="Hurtbox"]
