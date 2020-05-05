@@ -1,3 +1,3 @@
 extends Area2D
 
-export (Utils.HurtboxType) var hurtbox_type = Utils.HurtboxType.Player
+export (Utils.BoxType) var hurtbox_type = Utils.BoxType.Player

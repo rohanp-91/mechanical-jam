@@ -25,9 +25,14 @@ export (float) var knockback_counter_impulse = 30.0
 export (float) var light_reducer = 0.5
 export (float) var light_multiplier = 1.0
 
+export (PackedScene) var weapon
+
 # Child accessors
 onready var _sprite = $Sprites/Sprite
 onready var _light = $Light
+
+# Private variables
+var facing = Utils.EntityFacing.RIGHT
 
 func _ready():
 	add_to_group("player")
@@ -41,8 +46,10 @@ func flip_sprite(direction):
 		
 	if direction == 1:
 		_sprite.flip_h = false
+		facing = Utils.EntityFacing.RIGHT
 	elif direction == -1:
 		_sprite.flip_h = true
+		facing = Utils.EntityFacing.LEFT
 	
 func decrease_light(delta):
 	var current_scale = _light.transform.get_scale()
@@ -59,5 +66,5 @@ func increase_light():
 
 func on_Hurtbox_area_entered(area):
 	if "hitbox_type" in area:
-		if area.hitbox_type == Utils.HitboxType.Enemy:
+		if area.hitbox_type == Utils.BoxType.Enemy:
 			get_tree().call_group("player_motion", "knockback", area)

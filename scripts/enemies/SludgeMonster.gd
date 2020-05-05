@@ -3,7 +3,7 @@ extends KinematicBody2D
 export (float) var max_ground_speed = 60.0
 export (float) var gravity = 400.0
 export (float) var original_position_threshold = 0.05
-export (Utils.EnemyFacing) var original_direction = Utils.EnemyFacing.LEFT
+export (Utils.EntityFacing) var original_direction = Utils.EntityFacing.LEFT
 
 onready var _sprite = $Sprites/Sprite
 onready var _collisionShape = $CollisionShape2D
@@ -58,7 +58,7 @@ func get_collision_body_name(raycast: RayCast2D):
 
 func on_Hitbox_area_exited(area):
 	if "hurtbox_type" in area:
-		if area.hurtbox_type == Utils.HurtboxType.Player:
+		if area.hurtbox_type == Utils.BoxType.Player:
 			get_tree().call_group("enemy_motion", "stop_after_hit")
 			
 			

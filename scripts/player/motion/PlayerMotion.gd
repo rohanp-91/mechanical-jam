@@ -4,6 +4,7 @@ extends Node
 var fsm: StateMachine
 
 onready var player: KinematicBody2D = get_tree().get_root().get_node(Utils.PLAYER_NODE_PATH)
+onready var level: Node2D = get_tree().get_root().get_node("Level")
 
 # Ground motion variables
 var max_ground_speed: float
@@ -25,6 +26,8 @@ var air_friction: float
 # Attack and damage variables
 var knockback_impulse: float
 var knockback_counter_impulse: float
+var weapon: PackedScene
+var offset: Vector2 = Vector2(1.0, 0.0)
 
 # Private variables
 var _velocity: Vector2 = Vector2.ZERO
@@ -36,6 +39,12 @@ func _ready():
 	_initialize_variables()
 	
 func unhandled_input(event):
+	if event.is_action_pressed("attack"):
+		if weapon:
+			var weapon_instance = weapon.instance()
+			weapon_instance.global_position = player.global_position + offset
+			level.add_child(weapon_instance)
+			
 	get_tree().set_input_as_handled()
 	
 
@@ -93,6 +102,8 @@ func _initialize_variables():
 	
 	knockback_impulse = player.knockback_impulse
 	knockback_counter_impulse = player.knockback_counter_impulse
+	
+	weapon = player.weapon
 	
 	
 	

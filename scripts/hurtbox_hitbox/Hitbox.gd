@@ -1,3 +1,3 @@
 extends Area2D
 
-export (Utils.HitboxType) var hitbox_type = Utils.HitboxType.Player
+export (Utils.BoxType) var hitbox_type = Utils.BoxType.Player
