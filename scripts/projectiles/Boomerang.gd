@@ -1,18 +1,24 @@
 extends Area2D
 
+export (float) var max_speed = 2.5
+export (float) var mass = 2.0
+export (float) var time = 0.3
+
 onready var player: KinematicBody2D = get_tree().get_root().get_node(Utils.PLAYER_NODE_PATH)
+onready var timer: Timer = $Timer
 
 var _velocity: Vector2 = Vector2.ZERO
-var _max_speed: float = 3.0
-var _mass: float = 2.0
-var returning: bool = false
+var _returning: bool = false
 
 func _ready():
+	timer.start(time)
 	var direction = player.facing
-	_velocity.x = direction * _max_speed
+	_velocity.x = direction * max_speed
 	
 func _process(delta):
-	if returning:
+	print(_returning)
+	rotation_degrees += 15.0
+	if _returning:
 		_velocity = follow(_velocity, global_position, player.global_position + player.weapon_position)
 		var returned = check_if_returned()
 		if returned:
@@ -23,8 +29,8 @@ func _physics_process(delta):
 
 
 func follow(velocity, current_position, target_position):
-	var desired_velocity = (target_position - current_position).normalized() * _max_speed
-	var steering = (desired_velocity - velocity) / _mass
+	var desired_velocity = (target_position - current_position).normalized() * max_speed
+	var steering = (desired_velocity - velocity) / mass
 	return velocity + steering
 	
 func check_if_returned():
@@ -34,4 +40,4 @@ func check_if_returned():
 
 
 func on_Timer_timeout():
-	returning = true
+	_returning = true
