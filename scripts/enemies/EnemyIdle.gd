@@ -9,5 +9,8 @@ func process(delta):
 	if _should_activate:
 		.exit("Move")
 		
+func stop_after_hit():
+	.exit("Suspended")
+		
 func physics_process(delta):
 	.physics_process(delta)

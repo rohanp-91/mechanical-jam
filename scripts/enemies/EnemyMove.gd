@@ -16,5 +16,8 @@ func process(delta):
 	else:
 		.exit("Idle")
 		
+func stop_after_hit():
+	.exit("Suspended")
+		
 func physics_process(delta):
 	.physics_process(delta)

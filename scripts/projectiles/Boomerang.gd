@@ -1,5 +1,6 @@
 extends Area2D
 
+export (Utils.BoxType) var hitbox_type = Utils.BoxType.Player
 export (float) var max_speed = 2.5
 export (float) var mass = 2.0
 export (float) var time = 0.3
@@ -37,6 +38,9 @@ func check_if_returned():
 	var distance = global_position.distance_to(player.global_position)
 	var threshold = player.weapon_position.length()
 	return abs(distance) <= abs(threshold)
+
+
+
 
 
 func on_Timer_timeout():

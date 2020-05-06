@@ -43,6 +43,7 @@ func return_to_previous_state():
 func _enter_state():
 	if DEBUG:
 		print("Entering state: ", _state.name)
+	
 	_state.fsm = self
 	if !_state.has_method("enter"):
 		push_error("State %s doesn't implement enter method" %_state.name)

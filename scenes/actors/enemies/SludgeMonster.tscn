@@ -30,7 +30,7 @@ tracks/0/keys = {
 "values": [ 8, 9, 10, 11 ]
 }
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=3]
 resource_name = "Hurt"
 length = 0.2
 loop = true
@@ -59,7 +59,7 @@ tracks/1/keys = {
 "values": [ Color( 0.639216, 0, 1, 1 ), Color( 1, 1, 1, 1 ) ]
 }
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id=4]
 length = 0.8
 loop = true
 step = 0.2
@@ -76,7 +76,7 @@ tracks/0/keys = {
 "values": [ 0, 1, 2, 3 ]
 }
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=5]
 length = 0.4
 loop = true
 tracks/0/type = "value"
@@ -92,8 +92,8 @@ tracks/0/keys = {
 "values": [ 4, 4, 5, 6 ]
 }
 
-[sub_resource type="RectangleShape2D" id=5]
-extents = Vector2( 7, 4 )
+[sub_resource type="RectangleShape2D" id=6]
+extents = Vector2( 7, 5 )
 
 [node name="SludgeMonster" instance=ExtResource( 1 )]
 collision_layer = 4
@@ -102,7 +102,7 @@ script = ExtResource( 5 )
 max_ground_speed = 40.0
 
 [node name="Sprite" type="Sprite" parent="Sprites" index="0"]
-modulate = Color( 0.793156, 0.426682, 1, 1 )
+modulate = Color( 0.989426, 0.970691, 1, 1 )
 position = Vector2( 0, -8 )
 scale = Vector2( 0.5, 0.5 )
 texture = ExtResource( 2 )
@@ -117,9 +117,9 @@ shape = SubResource( 1 )
 [node name="AnimationPlayer" parent="." index="2"]
 autoplay = "Idle"
 anims/Die = SubResource( 2 )
-anims/Hurt = SubResource( 6 )
-anims/Idle = SubResource( 3 )
-anims/Move = SubResource( 4 )
+anims/Hurt = SubResource( 3 )
+anims/Idle = SubResource( 4 )
+anims/Move = SubResource( 5 )
 
 [node name="StateMachine" parent="." index="3"]
 script = ExtResource( 3 )
@@ -171,8 +171,8 @@ collision_mask = 2
 hitbox_type = 0
 
 [node name="CollisionShape2D" parent="Hitbox" index="0"]
-position = Vector2( 0, -3 )
-shape = SubResource( 5 )
-[connection signal="area_exited" from="Hitbox" to="." method="on_Hitbox_area_exited"]
+position = Vector2( 0, -4 )
+shape = SubResource( 6 )
+[connection signal="area_entered" from="Hitbox" to="." method="on_Hitbox_area_entered"]
 
 [editable path="Hitbox"]

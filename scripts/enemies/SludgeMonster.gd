@@ -12,6 +12,7 @@ onready var _wall_detector_left = $WallDetectorLeft
 onready var _wall_detector_right = $WallDetectorRight
 onready var _drop_detector_left = $DropDetectorLeft
 onready var _drop_detector_right = $DropDetectorRight
+onready var _hitbox_collision = $Hitbox/CollisionShape2D
 
 var priority_map: Dictionary = {
 	"Any": false,
@@ -56,10 +57,8 @@ func get_collision_body_name(raycast: RayCast2D):
 		return raycast.get_collider().name
 	return null		
 
-func on_Hitbox_area_exited(area):
+func on_Hitbox_area_entered(area):
 	if "hurtbox_type" in area:
 		if area.hurtbox_type == Utils.BoxType.Player:
 			get_tree().call_group("enemy_motion", "stop_after_hit")
-	
-			
 			
