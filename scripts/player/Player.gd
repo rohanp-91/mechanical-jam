@@ -32,7 +32,8 @@ onready var _sprite = $Sprites/Sprite
 onready var _light = $Light
 
 # Private variables
-var facing = Utils.EntityFacing.RIGHT
+var facing: int = Utils.EntityFacing.RIGHT
+var weapon_position: Vector2 = Vector2(3.0, -3.0)
 
 func _ready():
 	add_to_group("player")
@@ -50,7 +51,8 @@ func flip_sprite(direction):
 	elif direction == -1:
 		_sprite.flip_h = true
 		facing = Utils.EntityFacing.LEFT
-	
+		weapon_position.x = -weapon_position.x
+
 func decrease_light(delta):
 	var current_scale = _light.transform.get_scale()
 	current_scale -= Vector2.ONE * light_reducer * delta

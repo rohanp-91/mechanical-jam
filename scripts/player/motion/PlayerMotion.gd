@@ -27,7 +27,6 @@ var air_friction: float
 var knockback_impulse: float
 var knockback_counter_impulse: float
 var weapon: PackedScene
-var offset: Vector2 = Vector2(1.0, 0.0)
 
 # Private variables
 var _velocity: Vector2 = Vector2.ZERO
@@ -41,9 +40,7 @@ func _ready():
 func unhandled_input(event):
 	if event.is_action_pressed("attack"):
 		if weapon:
-			var weapon_instance = weapon.instance()
-			weapon_instance.global_position = player.global_position + offset
-			level.add_child(weapon_instance)
+			throw_weapon()
 			
 	get_tree().set_input_as_handled()
 	
@@ -61,8 +58,6 @@ func back():
 	fsm.return_to_previous_state()
 	
 
-
-
 # Public members
 
 func get_input_direction():
@@ -75,6 +70,15 @@ func get_knockback_direction(area):
 	var enemy_direction = owner.global_position.direction_to(area.global_position).normalized()
 	var knockback_direction = -enemy_direction
 	return knockback_direction
+	
+func throw_weapon():
+	var weapon_instance = weapon.instance()
+	var weapon_position = get_weapon_position()
+	weapon_instance.position = player.global_position + weapon_position
+	level.add_child(weapon_instance)
+	
+func get_weapon_position():
+	return player.weapon_position
 	
 # Callback members
 
@@ -104,8 +108,5 @@ func _initialize_variables():
 	knockback_counter_impulse = player.knockback_counter_impulse
 	
 	weapon = player.weapon
-	
-	
-	
 	
 	

@@ -13,7 +13,10 @@ func _ready():
 	
 func _process(delta):
 	if returning:
-		_velocity = follow(_velocity, global_position, player.global_position)
+		_velocity = follow(_velocity, global_position, player.global_position + player.weapon_position)
+		var returned = check_if_returned()
+		if returned:
+			queue_free()
 
 func _physics_process(delta):
 	translate(_velocity)
@@ -23,6 +26,11 @@ func follow(velocity, current_position, target_position):
 	var desired_velocity = (target_position - current_position).normalized() * _max_speed
 	var steering = (desired_velocity - velocity) / _mass
 	return velocity + steering
+	
+func check_if_returned():
+	var distance = global_position.distance_to(player.global_position)
+	var threshold = player.weapon_position.length()
+	return abs(distance) <= abs(threshold)
 
 
 func on_Timer_timeout():

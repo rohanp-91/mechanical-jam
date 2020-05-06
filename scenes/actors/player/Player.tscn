@@ -13,7 +13,7 @@
 [ext_resource path="res://scripts/player/motion/damage/Knockback.gd" type="Script" id=11]
 [ext_resource path="res://scenes/projectiles/Boomerang.tscn" type="PackedScene" id=12]
 
-[sub_resource type="CapsuleShape2D" id=9]
+[sub_resource type="CapsuleShape2D" id=1]
 radius = 4.0
 height = 0.0
 
@@ -38,7 +38,7 @@ tracks/0/keys = {
 "values": [ 8, 9 ]
 }
 
-[sub_resource type="Animation" id=8]
+[sub_resource type="Animation" id=4]
 resource_name = "Hurt"
 length = 0.2
 loop = true
@@ -67,7 +67,7 @@ tracks/1/keys = {
 "values": [ Color( 0.952941, 0.0470588, 0.0235294, 1 ), Color( 1, 1, 1, 1 ) ]
 }
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=5]
 length = 0.4
 loop = true
 tracks/0/type = "value"
@@ -95,8 +95,7 @@ tracks/1/keys = {
 "values": [ Color( 1, 1, 1, 1 ) ]
 }
 
-[sub_resource type="Animation" id=5]
-resource_name = "Jump"
+[sub_resource type="Animation" id=6]
 length = 0.2
 loop = true
 tracks/0/type = "value"
@@ -112,8 +111,7 @@ tracks/0/keys = {
 "values": [ 10, 11 ]
 }
 
-[sub_resource type="Animation" id=6]
-resource_name = "Run"
+[sub_resource type="Animation" id=7]
 length = 0.4
 loop = true
 tracks/0/type = "value"
@@ -129,7 +127,7 @@ tracks/0/keys = {
 "values": [ 0, 1, 2, 3 ]
 }
 
-[sub_resource type="RectangleShape2D" id=7]
+[sub_resource type="RectangleShape2D" id=8]
 extents = Vector2( 5, 5 )
 
 [node name="Player" instance=ExtResource( 1 )]
@@ -150,17 +148,18 @@ hframes = 16
 frame = 4
 
 [node name="CollisionShape2D" parent="." index="1"]
+visible = false
 position = Vector2( 0, -4 )
-shape = SubResource( 9 )
+shape = SubResource( 1 )
 
 [node name="AnimationPlayer" parent="." index="2"]
 autoplay = "Idle"
 anims/Climb = SubResource( 2 )
 anims/Fall = SubResource( 3 )
-anims/Hurt = SubResource( 8 )
-anims/Idle = SubResource( 4 )
-anims/Jump = SubResource( 5 )
-anims/Run = SubResource( 6 )
+anims/Hurt = SubResource( 4 )
+anims/Idle = SubResource( 5 )
+anims/Jump = SubResource( 6 )
+anims/Run = SubResource( 7 )
 
 [node name="StateMachine" parent="." index="3"]
 script = ExtResource( 3 )
@@ -194,7 +193,7 @@ collision_mask = 4
 
 [node name="CollisionShape2D" parent="Hurtbox" index="0"]
 position = Vector2( 0, -4 )
-shape = SubResource( 7 )
+shape = SubResource( 8 )
 [connection signal="area_entered" from="Hurtbox" to="." method="on_Hurtbox_area_entered"]
 [connection signal="area_exited" from="Hurtbox" to="." method="on_Hurtbox_area_exited"]
 
