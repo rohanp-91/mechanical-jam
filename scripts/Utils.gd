@@ -14,7 +14,7 @@ const PLAYER_NODE_PATH = "Level/Player"
 const ENEMY_NODE_PATH = "Level/Enemies/%s"
 
 # Attack and damage
-enum BoxType { Enemy, Player }
+enum BoxType { Enemy, Player, Weapon }
 
 # Interactable 
 const PORTAL_PATH_PREFIX = "Level/Portals/Portal_%d"

@@ -27,9 +27,9 @@ func _physics_process(delta):
 	var collision_left = get_collision_body_name(_wall_detector_left)
 	var collision_right = get_collision_body_name(_wall_detector_right)
 	
+	priority_map["Any"] = priority_map["Any"] or priority_map["PlayerRight"] or priority_map["PlayerLeft"]	
 	priority_map["PlayerLeft"] = true if collision_left == "Player" else false
 	priority_map["PlayerRight"] = true if collision_right == "Player" else false
-	priority_map["Any"] = priority_map["Any"] or priority_map["PlayerRight"] or priority_map["PlayerLeft"]
 	
 	if not _drop_detector_left.is_colliding():
 		priority = "PlayerRight"
@@ -60,5 +60,6 @@ func on_Hitbox_area_exited(area):
 	if "hurtbox_type" in area:
 		if area.hurtbox_type == Utils.BoxType.Player:
 			get_tree().call_group("enemy_motion", "stop_after_hit")
+	
 			
 			
