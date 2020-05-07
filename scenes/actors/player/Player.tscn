@@ -128,7 +128,7 @@ tracks/0/keys = {
 }
 
 [sub_resource type="RectangleShape2D" id=8]
-extents = Vector2( 5, 5 )
+extents = Vector2( 4, 5 )
 
 [node name="Player" instance=ExtResource( 1 )]
 collision_layer = 2

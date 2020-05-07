@@ -30,6 +30,16 @@ var weapon: PackedScene
 
 # Private variables
 var _velocity: Vector2 = Vector2.ZERO
+var is_in_knockback: bool = false
+
+# Callback members
+
+func knockback(area):
+	if fsm:
+		if not fsm._state.is_in_knockback:
+			print("Knockback")
+			var knockback_direction = get_knockback_direction(area)
+			exit("Knockback", knockback_direction)
 
 # Process handlers
 
@@ -46,18 +56,20 @@ func unhandled_input(event):
 	
 
 func physics_process(delta):
-	_velocity = owner.move_and_slide(_velocity, Vector2.UP)
+	if not fsm._state.name == "Knockback":
+		_velocity = owner.move_and_slide(_velocity, Vector2.UP)
 	_velocity.y += gravity * delta
 
 # FSM members
 
 func exit(state_name, args = null):
-	fsm.change_to_state(state_name, args)
+	if fsm:
+		fsm.change_to_state(state_name, args)
 	
 func back():
-	fsm.return_to_previous_state()
+	if fsm:
+		fsm.return_to_previous_state()
 	
-
 # Public members
 
 func get_input_direction():
@@ -79,12 +91,6 @@ func throw_weapon():
 	
 func get_weapon_position():
 	return player.weapon_position
-	
-# Callback members
-
-func knockback(area):
-	var knockback_direction = get_knockback_direction(area)
-	exit("Knockback", knockback_direction)
 
 # Private members
 

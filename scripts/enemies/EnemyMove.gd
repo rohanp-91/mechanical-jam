@@ -15,9 +15,7 @@ func process(delta):
 		_velocity.x = max_ground_speed * direction
 	else:
 		.exit("Idle")
-		
-func stop_after_hit():
-	.exit("Suspended")
+	
 		
 func physics_process(delta):
 	.physics_process(delta)

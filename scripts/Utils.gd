@@ -1,5 +1,8 @@
 extends Node
 
+# Global constants
+const STRING_EMPTY = ""
+
 # Game 
 const LEVEL_NAME = "Level"
 const LEVEL_PATH = "res://scenes/levels/Level_%d.tscn"

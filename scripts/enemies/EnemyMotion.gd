@@ -11,6 +11,9 @@ var gravity: float
 var _velocity: Vector2 = Vector2.ZERO
 var _should_activate: bool = false
 
+var is_suspended: bool = false
+var is_hurt: bool = false
+
 func _ready():
 	add_to_group("enemy_motion")
 	_initialize_variables()
@@ -19,11 +22,25 @@ func physics_process(delta):
 	_velocity = owner.move_and_slide(_velocity, Vector2.UP)	
 	_velocity.y += gravity * delta
 	
+func hurt():
+	if fsm:
+		if not fsm._state.is_hurt:
+			exit("Hurt")
+	
+func stop_after_hit():
+	if fsm:
+		if not fsm._state.is_suspended:
+			print("Suspended")
+			exit("Suspended")
+	
+	
 func exit(state_name, args = null):
-	fsm.change_to_state(state_name, args)
+	if fsm:
+		fsm.change_to_state(state_name, args)
 	
 func back():
-	fsm.return_to_previous_state()
+	if fsm:
+		fsm.return_to_previous_state()
 		
 func get_facing_direction():
 	var player_direction = owner.global_position.direction_to(player.global_position)

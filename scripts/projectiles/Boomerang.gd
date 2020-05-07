@@ -17,7 +17,6 @@ func _ready():
 	_velocity.x = direction * max_speed
 	
 func _process(delta):
-	print(_returning)
 	rotation_degrees += 15.0
 	if _returning:
 		_velocity = follow(_velocity, global_position, player.global_position + player.weapon_position)
@@ -39,9 +38,8 @@ func check_if_returned():
 	var threshold = player.weapon_position.length()
 	return abs(distance) <= abs(threshold)
 
-
-
-
-
 func on_Timer_timeout():
+	_returning = true
+
+func on_Boomerang_area_entered(area):
 	_returning = true

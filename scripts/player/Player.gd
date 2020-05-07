@@ -34,12 +34,16 @@ onready var _light = $Light
 # Private variables
 var facing: int = Utils.EntityFacing.RIGHT
 var weapon_position: Vector2 = Vector2(3.0, -3.0)
+var enemy_hit: bool = false
 
 func _ready():
 	add_to_group("player")
 	
 func _process(delta):
 	decrease_light(delta)
+	
+func _physics_process(delta):
+	pass
 	
 func flip_sprite(direction):
 	if not [-1, 1].has(direction):
@@ -68,5 +72,12 @@ func increase_light():
 
 func on_Hurtbox_area_entered(area):
 	if "hitbox_type" in area:
-		if area.hitbox_type == Utils.BoxType.Enemy:
+		if area.hitbox_type == Utils.BoxType.Enemy and not enemy_hit:
+			enemy_hit = true
 			get_tree().call_group("player_motion", "knockback", area)
+
+
+func on_Hurtbox_area_exited(area):
+	if "hitbox_type" in area:
+		if area.hitbox_type == Utils.BoxType.Enemy and enemy_hit:
+			enemy_hit = false

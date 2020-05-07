@@ -1,6 +1,11 @@
 extends "EnemyMotion.gd"
 
 func enter():
+	_velocity.x = 0.0
+	is_hurt = true
+	
 	owner.get_node("AnimationPlayer").play("Hurt")
-	yield(get_tree().create_timer(0.5), "timeout")
-	.exit("Idle")
+	yield(owner.get_node("AnimationPlayer"), "animation_finished")
+	
+	is_hurt = false
+	.back()

@@ -86,9 +86,3 @@ func _notification(what):
 	if _state:
 		if _state.has_method("notification"):
 			_state.notification(what)
-		
-
-
-
-
-

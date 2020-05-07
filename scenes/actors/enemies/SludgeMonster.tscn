@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://scenes/actors/ActorBase.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/slime-spritesheet.png" type="Texture" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://scenes/hurtbox_hitbox/Hitbox.tscn" type="PackedScene" id=7]
 [ext_resource path="res://scripts/enemies/EnemySuspended.gd" type="Script" id=8]
 [ext_resource path="res://scripts/enemies/EnemyHurt.gd" type="Script" id=9]
+[ext_resource path="res://scenes/hurtbox_hitbox/Hurtbox.tscn" type="PackedScene" id=10]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 3.0
@@ -33,7 +34,6 @@ tracks/0/keys = {
 [sub_resource type="Animation" id=3]
 resource_name = "Hurt"
 length = 0.2
-loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprites/Sprite:frame")
 tracks/0/interp = 1
@@ -93,6 +93,9 @@ tracks/0/keys = {
 }
 
 [sub_resource type="RectangleShape2D" id=6]
+extents = Vector2( 5, 5 )
+
+[sub_resource type="RectangleShape2D" id=7]
 extents = Vector2( 6, 5 )
 
 [node name="SludgeMonster" instance=ExtResource( 1 )]
@@ -102,7 +105,6 @@ script = ExtResource( 5 )
 max_ground_speed = 40.0
 
 [node name="Sprite" type="Sprite" parent="Sprites" index="0"]
-modulate = Color( 0.989426, 0.970691, 1, 1 )
 position = Vector2( 0, -8 )
 scale = Vector2( 0.5, 0.5 )
 texture = ExtResource( 2 )
@@ -173,6 +175,17 @@ hitbox_type = 0
 [node name="CollisionShape2D" parent="Hitbox" index="0"]
 position = Vector2( 1, -4 )
 shape = SubResource( 6 )
+
+[node name="Hurtbox" parent="." index="9" instance=ExtResource( 10 )]
+visible = false
+hurtbox_type = 0
+
+[node name="CollisionShape2D" parent="Hurtbox" index="0"]
+position = Vector2( 1, -4 )
+shape = SubResource( 7 )
 [connection signal="area_entered" from="Hitbox" to="." method="on_Hitbox_area_entered"]
+[connection signal="area_entered" from="Hurtbox" to="." method="on_Hurtbox_area_entered"]
 
 [editable path="Hitbox"]
+
+[editable path="Hurtbox"]
