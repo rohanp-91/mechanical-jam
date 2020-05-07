@@ -68,7 +68,6 @@ func get_collision_body_name(raycast: RayCast2D):
 func on_Hitbox_area_entered(area):
 	if "hurtbox_type" in area:
 		if area.hurtbox_type == Utils.BoxType.Player:
-			_hitbox
 			get_tree().call_group("enemy_motion", "stop_after_hit")
 
 

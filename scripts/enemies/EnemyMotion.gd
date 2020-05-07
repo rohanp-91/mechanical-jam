@@ -11,9 +11,6 @@ var gravity: float
 var _velocity: Vector2 = Vector2.ZERO
 var _should_activate: bool = false
 
-var is_suspended: bool = false
-var is_hurt: bool = false
-
 func _ready():
 	add_to_group("enemy_motion")
 	_initialize_variables()
@@ -23,15 +20,10 @@ func physics_process(delta):
 	_velocity.y += gravity * delta
 	
 func hurt():
-	if fsm:
-		if not fsm._state.is_hurt:
-			exit("Hurt")
+	exit("Hurt")
 	
 func stop_after_hit():
-	if fsm:
-		if not fsm._state.is_suspended:
-			print("Suspended")
-			exit("Suspended")
+	exit("Suspended")
 	
 	
 func exit(state_name, args = null):
