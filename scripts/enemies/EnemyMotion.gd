@@ -22,6 +22,9 @@ func physics_process(delta):
 func hurt():
 	exit("Hurt")
 	
+func die():
+	exit("Die")
+	
 func stop_after_hit():
 	exit("Suspended")
 	

@@ -1,9 +1,12 @@
 extends KinematicBody2D
 
+# Motion variables
 export (float) var max_ground_speed = 60.0
 export (float) var gravity = 400.0
-export (float) var original_position_threshold = 0.05
-export (Utils.EntityFacing) var original_direction = Utils.EntityFacing.LEFT
+
+# Attack and Damage variables
+export (float) var health = 3.0
+export (float) var damage = 1.0
 
 onready var _sprite = $Sprites/Sprite
 onready var _collisionShape = $CollisionShape2D
@@ -24,6 +27,7 @@ var priority_map: Dictionary = {
 	"PlayerRight" : false}
 var priority: String = Utils.STRING_EMPTY
 var prev_priority: String = Utils.STRING_EMPTY
+var player_hit: bool = false
 
 func _ready():
 	add_to_group("enemy")
@@ -69,10 +73,25 @@ func on_Hitbox_area_entered(area):
 	if "hurtbox_type" in area:
 		if area.hurtbox_type == Utils.BoxType.Player:
 			get_tree().call_group("enemy_motion", "stop_after_hit")
-
+			
 
 func on_Hurtbox_area_entered(area):
 	if "hitbox_type" in area:
-		if area.hitbox_type == Utils.BoxType.Player:
-			get_tree().call_group("enemy_motion", "hurt")
+		if area.hitbox_type == Utils.BoxType.Player and not player_hit:			
+			health -= 1
+			player_hit = true
 			
+			if health <= 0:
+				die()
+			else:
+				get_tree().call_group("enemy_motion", "hurt")
+
+func on_Hurtbox_area_exited(area):
+	if "hitbox_type" in area:
+		if area.hitbox_type == Utils.BoxType.Player and player_hit:
+			player_hit = false
+
+func die():
+	priority = Utils.STRING_EMPTY
+	get_tree().call_group("enemy_motion", "die")
+
