@@ -29,3 +29,4 @@ func unhandled_input(event):
 	elif event.is_action_pressed("jump") and air_jump:
 		air_jump = false
 		.exit("Jump")
+	return .unhandled_input(event)

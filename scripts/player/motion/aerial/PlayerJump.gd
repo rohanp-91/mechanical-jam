@@ -25,6 +25,6 @@ func physics_process(delta):
 	.physics_process(delta)
 	
 func unhandled_input(event):
-	.unhandled_input(event)
+	return .unhandled_input(event)
 	
 	

@@ -1,7 +1,7 @@
 extends "EnemyMotion.gd"
 
 func enter():
-	_velocity.x = 0
+	_velocity.x = 0.0
 	owner.get_node("AnimationPlayer").play("Idle")
 	
 func process(delta):
