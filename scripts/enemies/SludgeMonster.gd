@@ -33,6 +33,10 @@ func _ready():
 	add_to_group("enemy")
 	priority = "Any"
 	
+func _process(delta):
+	if health <= 0:
+		die()
+	
 func _physics_process(delta):
 	var collision_left = get_collision_body_name(_collision_detector_left)
 	var collision_right = get_collision_body_name(_collision_detector_right)
@@ -79,12 +83,9 @@ func on_Hurtbox_area_entered(area):
 	if "hitbox_type" in area:
 		if area.hitbox_type == Utils.BoxType.Player and not player_hit:			
 			health -= 1
-			player_hit = true
-			
-			if health <= 0:
-				die()
-			else:
-				get_tree().call_group("enemy_motion", "hurt")
+			player_hit = true			
+			get_tree().call_group("enemy_motion", "hurt")
+
 
 func on_Hurtbox_area_exited(area):
 	if "hitbox_type" in area:
