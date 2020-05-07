@@ -10,8 +10,8 @@ onready var _collisionShape = $CollisionShape2D
 
 onready var _animation_player = $AnimationPlayer
 
-onready var _wall_detector_left = $WallDetectorLeft
-onready var _wall_detector_right = $WallDetectorRight
+onready var _collision_detector_left = $CollisionDetectorLeft
+onready var _collision_detector_right = $CollisionDetectorRight
 onready var _drop_detector_left = $DropDetectorLeft
 onready var _drop_detector_right = $DropDetectorRight
 
@@ -30,8 +30,8 @@ func _ready():
 	priority = "Any"
 	
 func _physics_process(delta):
-	var collision_left = get_collision_body_name(_wall_detector_left)
-	var collision_right = get_collision_body_name(_wall_detector_right)
+	var collision_left = get_collision_body_name(_collision_detector_left)
+	var collision_right = get_collision_body_name(_collision_detector_right)
 	
 	priority_map["Any"] = priority_map["Any"] or priority_map["PlayerRight"] or priority_map["PlayerLeft"]	
 	priority_map["PlayerLeft"] = true if collision_left == "Player" else false

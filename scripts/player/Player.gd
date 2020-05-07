@@ -18,14 +18,14 @@ export (float) var air_acceleration = 75.0
 export (float) var air_friction = 20.0
 
 # Attack and damage variables
+export (PackedScene) var weapon
+export (int) var weapon_count = 1
 export (float) var knockback_impulse = 100.0
 export (float) var knockback_counter_impulse = 30.0
 
 # Light variables
 export (float) var light_reducer = 0.5
 export (float) var light_multiplier = 1.0
-
-export (PackedScene) var weapon
 
 # Child accessors
 onready var _sprite = $Sprites/Sprite
@@ -35,6 +35,9 @@ onready var _light = $Light
 var facing: int = Utils.EntityFacing.RIGHT
 var weapon_position: Vector2 = Vector2(3.0, -3.0)
 var enemy_hit: bool = false
+
+func get_weapon_count():
+	return weapon_count
 
 func _ready():
 	add_to_group("player")

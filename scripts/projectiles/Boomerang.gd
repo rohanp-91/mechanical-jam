@@ -22,6 +22,7 @@ func _process(delta):
 		_velocity = follow(_velocity, global_position, player.global_position + player.weapon_position)
 		var returned = check_if_returned()
 		if returned:
+			player.weapon_count += 1
 			queue_free()
 
 func _physics_process(delta):
