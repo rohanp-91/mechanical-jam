@@ -51,6 +51,10 @@ func get_knockback_direction(area):
 	return knockback_direction
 	
 func throw_weapon():
+	var weapon_count = get_weapon_count()
+	if weapon_count <= 0:
+		return
+	decrease_weapon_count()
 	var weapon_instance = weapon.instance()
 	var weapon_position = get_weapon_position()
 	weapon_instance.position = player.global_position + weapon_position
@@ -58,6 +62,12 @@ func throw_weapon():
 	
 func get_weapon_position():
 	return player.weapon_position
+	
+func get_weapon_count():
+	return player.weapon_count
+
+func decrease_weapon_count():
+	player.weapon_count -= 1
 
 # Process handlers
 
@@ -72,7 +82,6 @@ func unhandled_input(event):
 			
 	get_tree().set_input_as_handled()
 	
-
 func physics_process(delta):
 	if not fsm._state.name == "Knockback":
 		_velocity = owner.move_and_slide(_velocity, Vector2.UP)
@@ -110,5 +119,3 @@ func _initialize_variables():
 	knockback_counter_impulse = player.knockback_counter_impulse
 	
 	weapon = player.weapon
-	
-	
